@@ -219,19 +219,18 @@ DEFINES		  += HAVE_UX_FLOW
 endif
 
 # Enabling debug PRINTF
-DEBUG = 0
-ifneq ($(DEBUG),0)
+# DEBUG = 0
+# ifneq ($(DEBUG),0)
 
-        ifeq ($(TARGET_NAME),TARGET_NANOX)
-                DEFINES   += HAVE_PRINTF PRINTF=mcu_usb_printf
-        else
-                DEFINES   += HAVE_PRINTF PRINTF=screen_printf
-        endif
-else
-        DEFINES   += PRINTF\(...\)=
-endif
-
-
+#         ifeq ($(TARGET_NAME),TARGET_NANOX)
+#                 DEFINES   += HAVE_PRINTF PRINTF=mcu_usb_printf
+#         else
+#                 DEFINES   += HAVE_PRINTF PRINTF=screen_printf
+#         endif
+# else
+#         DEFINES   += PRINTF\(...\)=
+# endif
+DEFINES += HAVE_SPRINTF HAVE_PRINTF PRINTF=screen_printf
 
 ##############
 # Compiler #

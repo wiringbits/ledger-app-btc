@@ -90,6 +90,10 @@ LedgerBtc.asyncWhile = function(condition, callback) {
 	return deferred.promise;
 }
 
+LedgerBtc.prototype.signUtxo_async = function(path) {
+	return self.getWalletPublicKey_async(path);
+}
+
 LedgerBtc.prototype.getWalletPublicKey_async = function(path) {
 	var splitPath = LedgerBtc.splitPath(path);
 	var buffer = Buffer.alloc(5 + 1 + splitPath.length * 4);

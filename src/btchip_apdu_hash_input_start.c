@@ -28,6 +28,12 @@
 #define P2_CONTINUE 0x80
 
 unsigned short btchip_apdu_hash_input_start() {
+    // uint8_t bufferx[4] = {0xDE, 0xAD, 0xBE, 0xEF};
+    // // PRINTF(string, array length, array);
+    // // .*H for uppercase, .*h for lowercase
+    // PRINTF("TEST#1 What a lovely buffer:\n %.*H \n\n", 4, bufferx);
+    // PRINTF("TEST#2 I prefer it lower-cased:\n %.*h \n", 4, bufferx);
+
     unsigned char apduLength;
     apduLength = G_io_apdu_buffer[ISO_OFFSET_LC];
 

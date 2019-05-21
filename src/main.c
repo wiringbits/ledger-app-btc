@@ -302,6 +302,7 @@ const ux_menu_entry_t menu_settings[];
 void menu_settings_pubKeyRequestRestriction_change(unsigned int enabled) {
     nvm_write((void *)&N_btchip.pubKeyRequestRestriction, &enabled, 1);
     // go back to the menu entry
+
     UX_MENU_DISPLAY(0, menu_main, NULL);
 }
  const ux_menu_entry_t menu_settings_pubKeyRequestRestriction[] = {
@@ -315,7 +316,7 @@ void menu_settings_pubKeyRequestRestriction_change(unsigned int enabled) {
     UX_MENU_END};
 
 const ux_menu_entry_t menu_about[] = {
-    {NULL, NULL, 0, NULL, "Version", APPVERSION, 0, 0},
+    {NULL, NULL, 0, NULL, "The Version", APPVERSION, 0, 0},
     {menu_main, NULL, 1, &C_nanos_icon_back, "Back", NULL, 61, 40},
     UX_MENU_END};
 
