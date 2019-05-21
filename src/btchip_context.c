@@ -23,6 +23,12 @@ void btchip_autosetup(void);
  * Initialize the application context on boot
  */
 void btchip_context_init() {
+    PRINTF("Test\n");
+    PRINTF("Test!\n");
+    PRINTF("Context init\n");
+    PRINTF("Context iniX\n");
+    PRINTF("Test\n");
+    PRINTF("Context Init\n");
     PRINTF("Context init\n");
     PRINTF("Backup size %d\n", sizeof(N_btchip.bkp));
     os_memset(&btchip_context_D, 0, sizeof(btchip_context_D));

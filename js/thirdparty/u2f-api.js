@@ -15,6 +15,10 @@
  * @type {Object}
  */
 var u2f = u2f || {};
+// var u2f;
+// if ( ! u2f) {
+//   u2f = {};
+// }
 
 /**
   * Require integration

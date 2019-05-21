@@ -88,6 +88,10 @@ LedgerBtc.asyncWhile = function(condition, callback) {
 	return deferred.promise;
 }
 
+LedgerBtc.prototype.signUtxo_async = function(path) {
+	return self.getWalletPublicKey_async(path);
+}
+
 LedgerBtc.prototype.getWalletPublicKey_async = function(path) {
 	var splitPath = LedgerBtc.splitPath(path);
 	var buffer = Buffer.alloc(5 + 1 + splitPath.length * 4);
@@ -110,7 +114,6 @@ LedgerBtc.prototype.getWalletPublicKey_async = function(path) {
 		result['bitcoinAddress'] = response.slice(1 + publicKeyLength + 1, 1 + publicKeyLength + 1 + addressLength).toString('ascii');
 		result['chainCode'] = response.slice(1 + publicKeyLength + 1 + addressLength, 1 + publicKeyLength + 1 + addressLength + 32).toString('hex');
 		return result;
-
 	});
 }
 
