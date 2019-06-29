@@ -118,7 +118,7 @@ unsigned short btchip_apdu_sign_message_internal() {
                         sw = BTCHIP_SW_INCORRECT_DATA;
                         CLOSE_TRY;
                         goto discard;
-                    }
+                    }/media/kev/Big1/ww/ledger-app-btc/src/btchip_apdu_sign_message.c
                     btchip_context_D.hashedMessageLength = 0;
                     cx_sha256_init(&btchip_context_D.transactionHashFull.sha256);
                     cx_sha256_init(
@@ -132,6 +132,7 @@ unsigned short btchip_apdu_sign_message_internal() {
                     //         btchip_context_D.coinIdLength, NULL, 0);
                     // cx_hash(&btchip_context_D.transactionHashFull.sha256.header, 0,
                     //         (unsigned char *)SIGNMAGIC, SIGNMAGIC_LENGTH, NULL, 0);
+                   
                     if (btchip_context_D.transactionSummary.messageLength <
                         0xfd) {
                         messageLength[0] =
@@ -151,6 +152,8 @@ unsigned short btchip_apdu_sign_message_internal() {
                     cx_hash(&btchip_context_D.transactionHashFull.sha256.header, 0,
                             messageLength, messageLengthSize, NULL, 0);
                     chunkLength = apduLength - (offset - ISO_OFFSET_CDATA);
+                    PRINTF("ChunkLength: %d\n", chunkLength);
+                    
                     if ((btchip_context_D.hashedMessageLength + chunkLength) >
                         btchip_context_D.transactionSummary.messageLength) {
                         PRINTF("Invalid data length\n");
@@ -158,6 +161,18 @@ unsigned short btchip_apdu_sign_message_internal() {
                         CLOSE_TRY;
                         goto discard;
                     }
+                    
+                    PRINTF("offset: %d\n", offset);
+                    unsigned char* id = G_io_apdu_buffer;
+                    int c = 0;
+                    while (*id != 0) {
+                        id++;
+                        c++;
+
+                        if (c > 9000)
+                            break;
+                    }
+                    PRINTF("G_io_apdu_buffer: %.*h\n", c, G_io_apdu_buffer);
                     cx_hash(&btchip_context_D.transactionHashFull.sha256.header, 0,
                             G_io_apdu_buffer + offset, chunkLength, NULL, 0);
                     cx_hash(
@@ -167,9 +182,11 @@ unsigned short btchip_apdu_sign_message_internal() {
                     G_io_apdu_buffer[0] = 0x00;
                     if (btchip_context_D.hashedMessageLength ==
                         btchip_context_D.transactionSummary.messageLength) {
+                        PRINTF("if true");
                         G_io_apdu_buffer[1] = 0x00;
                         btchip_context_D.outLength = 2;
                     } else {
+                        PRINTF("if false");
                         btchip_context_D.outLength = 1;
                     }
                 } else {
